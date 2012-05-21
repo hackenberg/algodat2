@@ -4,15 +4,15 @@ package ads1ss12.pa;
  * Eine Kante des Eingabe-Graphen.
  * 
  * <p>
- * Auf die Knoten der Kante sowie deren Gewicht kann einfach &uuml;ber die
- * &ouml;ffentlichen Variablen {@link #node1}, {@link #node2} und
- * {@link #weight} zugegriffen werden. Allerdings k&ouml;nnen diese Werte nicht
- * ver&auml;ndert werden.
+ * Auf die Knoten der Kante sowie deren Gewicht kann einfach über die
+ * öffentlichen Variablen {@link #node1}, {@link #node2} und
+ * {@link #weight} zugegriffen werden. Allerdings können diese Werte nicht
+ * verändert werden.
  * </p>
  * 
  * <p>
- * <b>WICHTIG:</b> Nehmen Sie keine &Auml;nderungen an dieser Klasse vor! Diese
- * werden vom Abgabesystem verworfen und es k&ouml;nnte sein, dass Ihr Programm
+ * <b>WICHTIG:</b> Nehmen Sie keine Änderungen an dieser Klasse vor! Diese
+ * werden vom Abgabesystem verworfen und es könnte sein, dass Ihr Programm
  * dann nicht mehr korrekt funktioniert.
  * </p>
  */
