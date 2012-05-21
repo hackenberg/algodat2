@@ -11,9 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Diese Klasse enthä:q
- * :q
- * lt nur die {@link #main main()}-Methode zum Starten
+ * Diese Klasse enthält nur die {@link #main main()}-Methode zum Starten
  * des Programms, sowie {@link #printDebug(String)} und
  * {@link #printDebug(Object)} zum Ausgeben von Debug Meldungen.
  * 
