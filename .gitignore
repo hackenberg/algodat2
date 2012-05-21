@@ -6,8 +6,6 @@
 *.war
 *.ear
 
-
-
 # generic files to ignore
 # backup files (*~) and vim swap file (*.swp), MacOS dir file (.DS_Store)
 *~
