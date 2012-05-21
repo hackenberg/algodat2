@@ -18,8 +18,8 @@ import java.util.Set;
  * {@link #printDebug(Object)} zum Ausgeben von Debug Meldungen.
  * 
  * <p>
- * <b>WICHTIG:</b> Nehmen Sie keine &Auml;nderungen in dieser Klasse vor. Bei
- * der Abgabe werden diese &Auml;nderungen verworfen und es k&ouml;nnte dadurch
+ * <b>WICHTIG:</b> Nehmen Sie keine Änderungen in dieser Klasse vor. Bei
+ * der Abgabe werden diese Änderungen verworfen und es könnte dadurch
  * passieren, dass Ihr Programm somit nicht mehr korrekt funktioniert.
  * </p>
  */
@@ -40,10 +40,10 @@ public class Main {
 	 */
 	private static boolean dontStop = false;
 
-	/** Test flag f&uuml;r Laufzeit Ausgabe */
+	/** Test flag für Laufzeit Ausgabe */
 	private static boolean test = false;
 
-	/** Debug flag f&uuml;r zus&auml;tzliche Debug Ausgaben */
+	/** Debug flag für zusätzliche Debug Ausgaben */
 	private static boolean debug = false;
 
 	/** Die Anzahl der Knoten */
@@ -55,17 +55,17 @@ public class Main {
 	/** Der Wert k */
 	private static Integer k;
 
-	/** Der Schwellwert f&uuml;r die gelbe Schranke */
+	/** Der Schwellwert für die gelbe Schranke */
 	private static Integer threshold;
 
 	/**
-	 * Liest die Daten einer Testinstanz ein und &uuml;bergibt sie an die
+	 * Liest die Daten einer Testinstanz ein und übergibt sie an die
 	 * entsprechenden Methoden der k-MST Implementierung.
 	 * 
 	 * <p>
 	 * Wenn auf der Kommandozeile die Option <code>-d</code> angegeben wird,
-	 * werden s&auml;mtliche Strings, die an {@link Main#printDebug(String)}
-	 * &uuml;bergeben werden, ausgegeben.
+	 * werden sämtliche Strings, die an {@link Main#printDebug(String)}
+	 * übergeben werden, ausgegeben.
 	 * </p>
 	 * 
 	 * <p>
@@ -73,14 +73,14 @@ public class Main {
 	 * </code>, <code>-t</code>, oder <code>-s</code> beginnt, wird als der Pfad
 	 * zur Datei interpretiert, aus der die Testinstanz auszulesen ist. Alle
 	 * nachfolgenden Parameter werden ignoriert. Wird kein Dateiname angegeben,
-	 * wird die Testinstanz &uuml;ber {@link System#in} eingelesen.
+	 * wird die Testinstanz über {@link System#in} eingelesen.
 	 * </p>
 	 * 
 	 * @param args
-	 *            Die von der Kommandozeile &uuml;bergebenen Argumente. Die
-	 *            Option <code>-d</code> aktiviert debug-Ausgaben &uuml;ber
+	 *            Die von der Kommandozeile übergebenen Argumente. Die
+	 *            Option <code>-d</code> aktiviert debug-Ausgaben über
 	 *            {@link #printDebug(String)}, <code>-t</code> gibt
-	 *            zus&auml;tzlich Dateiname und Laufzeit aus und <code>-s</code>
+	 *            zusätzlich Dateiname und Laufzeit aus und <code>-s</code>
 	 *            verhindert, dass Ihr Algorithmus nach 30 Sekunden beendet
 	 *            wird. Der erste andere String wird als Dateiname
 	 *            interpretiert.
@@ -114,7 +114,7 @@ public class Main {
 	}
 
 	/**
-	 * Liest einen Testfall vom &uuml;bergebenen {@link Scanner} ein.
+	 * Liest einen Testfall vom übergebenen {@link Scanner} ein.
 	 * 
 	 * @param is
 	 *            Der {@link Scanner}
@@ -179,7 +179,7 @@ public class Main {
 
 	/**
 	 * Startet Ihre k-MST Implementierung mit einen Testfall und
-	 * &uuml;berpr&uuml;ft danach Ihre L&ouml;sung.
+	 * überprüft danach Ihre Lösung.
 	 * 
 	 * @param edges
 	 *            Kantenmege des Graphen
@@ -270,7 +270,7 @@ public class Main {
 	}
 
 	/**
-	 * Diese Methode &uuml;berprüft ob eine Lösung einen gültigen Baum mit exakt
+	 * Diese Methode überprüft ob eine Lösung einen gültigen Baum mit exakt
 	 * k Knoten darstellt.
 	 * 
 	 * @param solution
@@ -346,7 +346,7 @@ public class Main {
 	}
 
 	/**
-	 * &Ouml;ffnet die Eingabedatei und gibt einen {@link Scanner} zur&uuml;ck,
+	 * Öffnet die Eingabedatei und gibt einen {@link Scanner} zur&uuml;ck,
 	 * der von ihr liest. Falls kein Dateiname angegeben wurde, wird von
 	 * {@link System#in} gelesen.
 	 * 
@@ -368,7 +368,7 @@ public class Main {
 
 	/**
 	 * Interpretiert die Parameter, die dem Programm &uuml;bergeben wurden und
-	 * gibt einen {@link Scanner} zur&uuml;ck, der von der Testinstanz liest.
+	 * gibt einen {@link Scanner} zurück, der von der Testinstanz liest.
 	 * 
 	 * @param args
 	 *            Die Eingabeparameter
