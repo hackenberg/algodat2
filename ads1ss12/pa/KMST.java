@@ -94,6 +94,7 @@ public class KMST extends AbstractKMST {
 
 		HashSet<Edge> mst = new HashSet<Edge>();
 		HashSet<Integer> nodes = new HashSet<Integer>();
+		int newUpperBound = 0; // Gewicht jener Kanten, die in der Lösungsmenge enthalten sind
 
 		nodes.add(node);
 
@@ -103,13 +104,19 @@ public class KMST extends AbstractKMST {
 				if(nodes.contains(e.node1) && e.weight < min.weight)
 					min = e;
 			}
+			newUpperBound += min.weight;
+
+			// abbrechen falls Lösung nicht mehr optimal
+			if(newUpperBound > this.getSolution().getUpperBound())
+				break;
+
 			mst.add(min);
 			nodes.add(min.node2);
 		}
 
 		//-----------------------
 		
-		int newUpperBound = 0;
+
 		for(Edge e : mst) {
 			newUpperBound += e.weight;
 		}
