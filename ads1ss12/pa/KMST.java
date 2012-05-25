@@ -36,7 +36,56 @@ public class KMST extends AbstractKMST {
 	 */
 	@Override
 	public void run() {
-		// TODO: Diese Methode ist von Ihnen zu implementieren
+		
+		// günstigste Kante auswählen, die keinen Kreis schließt
+	/*	Edge min = null;
+		for(Edge e : edges) {
+			if(!usedNodes.contains(e.node1) && !usedNodes.contains(e.node2)) {
+				if(e < min)
+					min = e;
+			}
+		}
+
+		// günstigste Kante hinzufügen
+		usedNodes.add(min.node1);
+		usedNodes.add(min.node2);
+		usedEdges.add(min);
+
+		// Schranken anpassen
+		l += min.weight;
+
+
+		// Rekursion ausführen oder abbrechen
+		if(usedNodes.size() == k)
+			return;
+		else
+			run();
+*/
+
+
 	}
 
-}
+	/**
+	 * Implementierung des Algorithmus von Prim zur Findung eines kMST.
+	 */
+	public HashSet<Edge> prim(int node, int k, HashSet<Edge> graph) {
+
+		HashSet<Edge> mst = new HashSet<Edge>();
+		HashSet<Integer> nodes = new HashSet<Integer>();
+
+		nodes.add(node);
+
+		while(nodes.size() < k) {
+			Edge min = null;
+			for(Edge e : graph) {
+				if(nodes.contains(e.node1) && e.weight < min.weight)
+					min = e;
+			}
+			mst.add(min);
+			nodes.add(min.node2);
+		}
+		
+		return mst;
+	}
+
+} // class KMST
