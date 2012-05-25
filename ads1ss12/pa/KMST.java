@@ -108,14 +108,14 @@ public class KMST extends AbstractKMST {
 		}
 
 		//-----------------------
-	/*	
+		
 		int newUpperBound = 0;
 		for(Edge e : mst) {
 			newUpperBound += e.weight;
 		}
 
 		this.setSolution(newUpperBound, mst);
-	*/	
+		
 		return mst;
 	}
 
