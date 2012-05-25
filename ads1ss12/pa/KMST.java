@@ -8,6 +8,11 @@ import java.util.HashSet;
  */
 public class KMST extends AbstractKMST {
 
+	private int numNodes;
+	private int numEdges;
+	private HashSet<Edge> edges;
+	private int k;
+
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
 	 * Initialisierung Ihrer Datenstrukturen.
@@ -22,7 +27,10 @@ public class KMST extends AbstractKMST {
 	 *            Die Anzahl der Knoten, die Ihr MST haben soll
 	 */
 	public KMST(Integer numNodes, Integer numEdges, HashSet<Edge> edges, int k) {
-		// TODO: Hier ist der richtige Platz fuer Initialisierungen
+		this.numNodes = numNodes;
+		this.numEdges = numEdges;
+		this.edges = edges;
+		this.k = k;
 	}
 
 	/**
@@ -36,6 +44,20 @@ public class KMST extends AbstractKMST {
 	 */
 	@Override
 	public void run() {
+
+		// Menge nodes mit allen Knoten erstellen
+		HashSet<Integer> nodes = new HashSet<Integer>();
+		for(Edge e : edges) {
+			if(!nodes.contains(e.node1))
+				nodes.add(e.node1);
+			if(!nodes.contains(e.node2))
+				nodes.add(e.node2);
+		}
+
+		for(Integer n : nodes) {
+			prim(n, k, edges);
+		}
+
 		
 		// günstigste Kante auswählen, die keinen Kreis schließt
 	/*	Edge min = null;
@@ -84,7 +106,16 @@ public class KMST extends AbstractKMST {
 			mst.add(min);
 			nodes.add(min.node2);
 		}
-		
+
+		//-----------------------
+	/*	
+		int newUpperBound = 0;
+		for(Edge e : mst) {
+			newUpperBound += e.weight;
+		}
+
+		this.setSolution(newUpperBound, mst);
+	*/	
 		return mst;
 	}
 
