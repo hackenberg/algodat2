@@ -57,38 +57,11 @@ public class KMST extends AbstractKMST {
 		for(Integer n : nodes) {
 			prim(n, k, edges);
 		}
-
-		
-		// günstigste Kante auswählen, die keinen Kreis schließt
-	/*	Edge min = null;
-		for(Edge e : edges) {
-			if(!usedNodes.contains(e.node1) && !usedNodes.contains(e.node2)) {
-				if(e < min)
-					min = e;
-			}
-		}
-
-		// günstigste Kante hinzufügen
-		usedNodes.add(min.node1);
-		usedNodes.add(min.node2);
-		usedEdges.add(min);
-
-		// Schranken anpassen
-		l += min.weight;
-
-
-		// Rekursion ausführen oder abbrechen
-		if(usedNodes.size() == k)
-			return;
-		else
-			run();
-*/
-
-
 	}
 
 	/**
 	 * Implementierung des Algorithmus von Prim zur Findung eines kMST.
+	 * Dieser Algorithmus enthält bereits BnB spezifische Modifizierungen.
 	 */
 	public HashSet<Edge> prim(int node, int k, HashSet<Edge> graph) {
 
