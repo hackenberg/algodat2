@@ -74,7 +74,7 @@ public class KMST extends AbstractKMST {
 		while(nodes.size() < k) {
 			Edge min = null;
 			for(Edge e : graph) {
-				if(nodes.contains(e.node1) && e.weight < min.weight)
+				if(nodes.contains(e.node1) && e < min)
 					min = e;
 			}
 			newUpperBound += min.weight;
