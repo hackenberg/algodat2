@@ -192,35 +192,4 @@ public class KMST extends AbstractKMST {
 		}
 	}
 
-	/*
-	public void depthFirstSearch1(int node) {
-		boolean[] marked = new boolean[numNodes];
-		for(int i = 0; i < numNodes; i++) {
-			marked[i] = false;
-		}
-		dfs1(node);
-		for(int n : nodes) {
-			if(marked[n])
-				out.add(n);
-		}
-	}
-
-	public void dfs1(int node) {
-
-		AdjacencyList al = new AdjacencyList();
-		boolean[] marked = new boolean[numNodes];
-		for(int i = 0; i < numNodes; i++) {
-			marked[i] = false;
-		}
-
-		marked[node] = true;
-		for(Integer n : al.get(node)) {
-			if(!marked[n]) {
-				dfs1(n);
-			}
-		}
-
-	}
-	*/
-
 } // class KMST
