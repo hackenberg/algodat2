@@ -1,6 +1,9 @@
 package ads1ss12.pa;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 
 /**
  * Klasse zum Berechnen eines k-MST mittels Branch-and-Bound. Hier sollen Sie
@@ -12,6 +15,26 @@ public class KMST extends AbstractKMST {
 	private int numEdges;
 	private HashSet<Edge> edges;
 	private int k;
+
+	private HashSet<Integer> nodes;
+	private ArrayList<PriorityQueue<Integer>> al; // Adjazenzliste
+	private PriorityQueue<Edge> edgequeue; // edges als priority queue
+
+	private ArrayList<PriorityQueue<Edge>> array;
+
+	/*
+	private class AdjacencyList {
+
+		private ArrayList<HashSet<Integer>> n = new ArrayList<HashSet<Integer>>(); // besser wäre al mit priorityqueues mit edges
+
+		public AdjacencyList() {
+			for(Edge e : edges) {
+				n.add(e.node1, e.node2);
+				n.add(e.node2, e.node1);
+			}
+		}
+	}
+	*/
 
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
@@ -31,6 +54,49 @@ public class KMST extends AbstractKMST {
 		this.numEdges = numEdges;
 		this.edges = edges;
 		this.k = k;
+
+		// Knotenliste intitialisieren
+		this.nodes = new HashSet<Integer>();
+		for(Edge e : edges) {
+			this.nodes.add(e.node1);
+			this.nodes.add(e.node2);
+		}
+
+		// Adjazenzliste initialisieren
+		al = new ArrayList<PriorityQueue<Integer>>();
+		for(Integer n : nodes) {
+			al.add(n, new PriorityQueue<Integer>());
+		}
+		for(Edge e : edges) {
+			al.get(e.node1).add(e.node2);
+			al.get(e.node2).add(e.node1);
+		}
+
+		// priority queue initialisieren
+		edgequeue = new PriorityQueue<Edge>();
+		for(Edge e : edges) {
+			edgequeue.add(e);
+		}
+
+		array = new ArrayList<PriorityQueue<Edge>>();
+		for(Edge e : edges) {
+			array.get(e.node1).add(e);
+			array.get(e.node2).add(e);
+		}
+
+		/*
+		this.numNodes = numNodes;
+		this.numEdges = numEdges;
+		this.edges = edges;
+		this.k = k;
+
+		for(Edge e : edges) {
+			this.nodes.add(e.node1);
+			this.nodes.add(e.node2);
+		}
+
+		this.setSolution(Integer.MAX_VALUE, edges);
+		*/
 	}
 
 	/**
@@ -45,17 +111,11 @@ public class KMST extends AbstractKMST {
 	@Override
 	public void run() {
 
-		// Menge nodes mit allen Knoten erstellen
-		HashSet<Integer> nodes = new HashSet<Integer>();
-		for(Edge e : edges) {
-			if(!nodes.contains(e.node1))
-				nodes.add(e.node1);
-			if(!nodes.contains(e.node2))
-				nodes.add(e.node2);
-		}
+		int startNode = 0;
 
-		for(Integer n : nodes) {
-			prim(n, k, edges);
+		// navigiere mit Depth-First-Search zu jedem Knoten
+		for(Integer n : depthFirstSearch1(startNode)) {
+			prim(n);
 		}
 	}
 
@@ -63,40 +123,117 @@ public class KMST extends AbstractKMST {
 	 * Implementierung des Algorithmus von Prim zur Findung eines kMST.
 	 * Dieser Algorithmus enthält bereits BnB spezifische Modifizierungen.
 	 */
-	public HashSet<Edge> prim(int node, int k, HashSet<Edge> graph) {
+	public void prim(int node) {
 
-		HashSet<Edge> mst = new HashSet<Edge>();
-		HashSet<Integer> nodes = new HashSet<Integer>();
-		int newUpperBound = 0; // Gewicht jener Kanten, die in der Lösungsmenge enthalten sind
+		HashSet<Edge> mst = new HashSet<Edge>(); 		// Lösungsmenge
+		HashSet<Integer> mstNodes = new HashSet<Integer>();	// In der Lösungsmenge enthaltenen Knoten
+		int localLowerBound = 0; 				// lokale untere Schranke
+		mstNodes.add(node);
 
-		nodes.add(node);
-
-		while(nodes.size() < k) {
-			Edge min = null;
-			for(Edge e : graph) {
-				if(nodes.contains(e.node1) && e.compareTo(min) < 0)
-					min = e;
-			}
-			newUpperBound += min.weight;
-
-			// abbrechen falls Lösung nicht mehr optimal
-			if(newUpperBound > this.getSolution().getUpperBound())
-				break;
-
-			mst.add(min);
-			nodes.add(min.node2);
-		}
-
-		//-----------------------
-		
-
-		for(Edge e : mst) {
-			newUpperBound += e.weight;
-		}
-
-		this.setSolution(newUpperBound, mst);
-		
-		return mst;
+		prim(mst, mstNodes, edges, localLowerBound);
+		return;
 	}
+
+	public void prim(HashSet<Edge> mst, HashSet<Integer> mstNodes, HashSet<Edge> remainingEdges, int localLowerBound) {
+
+		// beenden, falls k Knoten verbunden
+		if(mst.size() >= k) {
+			this.setSolution(localLowerBound, mst);
+			return;
+		}
+
+		// abbrechen falls Lösung nicht mehr optimal
+		else if(localLowerBound > this.getSolution().getUpperBound()) {
+			return;
+		}
+
+		// kleinste, mit der Lösungsmenge verbundene, Kante suchen
+		Edge minEdge = null;
+		int minWeight = Integer.MAX_VALUE;
+		for(Edge e : remainingEdges) {
+			if(e.weight < minWeight && (mstNodes.contains(e.node1) ^ mstNodes.contains(e.node2))) {
+				minEdge = e;
+				minWeight = e.weight;
+			}
+		}
+
+		// minEdge wird auf jeden Fall entfernt
+		HashSet<Edge> newRemainingEdges = new HashSet<Edge>(remainingEdges);
+		remainingEdges.remove(minEdge);
+
+		// mit minEdge fortfahren
+		HashSet<Edge> newMst = new HashSet<Edge>(mst);
+		HashSet<Integer> newMstNodes = new HashSet<Integer>(mstNodes);
+
+		newMst.add(minEdge);
+		newMstNodes.add(minEdge.node1);
+		newMstNodes.add(minEdge.node2);
+		int newLocalLowerBound = localLowerBound + minWeight;
+
+		prim(newMst, newMstNodes, newRemainingEdges, newLocalLowerBound);
+
+		// ohne minEdge fortfahren
+		newMst = new HashSet<Edge>(mst);
+		newMstNodes = new HashSet<Integer>(mstNodes);
+		newLocalLowerBound = localLowerBound;
+
+		prim(newMst, newMstNodes, newRemainingEdges, localLowerBound);
+	}
+
+
+	public ArrayList<Integer> depthFirstSearch1(int node) {
+		boolean[] marked = new boolean[numNodes];
+		for(int i = 0; i < numNodes; i++) {
+			marked[i] = false;
+		}
+
+		dfs1(node, marked);
+
+		// Ausgabe
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		for(int i = 0; i < numNodes; i++) {
+			if(marked[i])
+				out.add(i);
+		}
+		return out;
+	}
+	public void dfs1(int node, boolean[] marked) {
+		marked[node] = true;
+		for(Integer n : al.get(node)) {
+			if(!marked[n])
+				dfs1(n, marked);
+		}
+	}
+
+	/*
+	public void depthFirstSearch1(int node) {
+		boolean[] marked = new boolean[numNodes];
+		for(int i = 0; i < numNodes; i++) {
+			marked[i] = false;
+		}
+		dfs1(node);
+		for(int n : nodes) {
+			if(marked[n])
+				out.add(n);
+		}
+	}
+
+	public void dfs1(int node) {
+
+		AdjacencyList al = new AdjacencyList();
+		boolean[] marked = new boolean[numNodes];
+		for(int i = 0; i < numNodes; i++) {
+			marked[i] = false;
+		}
+
+		marked[node] = true;
+		for(Integer n : al.get(node)) {
+			if(!marked[n]) {
+				dfs1(n);
+			}
+		}
+
+	}
+	*/
 
 } // class KMST
