@@ -81,9 +81,9 @@ public class KMST extends AbstractKMST {
 			this.nodes.add(e.node1);
 			this.nodes.add(e.node2);
 		}
+		*/
 
 		this.setSolution(Integer.MAX_VALUE, edges);
-		*/
 	}
 
 	/**
