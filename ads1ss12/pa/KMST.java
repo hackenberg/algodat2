@@ -19,22 +19,7 @@ public class KMST extends AbstractKMST {
 	private HashSet<Integer> nodes;
 	private ArrayList<PriorityQueue<Integer>> al; // Adjazenzliste
 	//private PriorityQueue<Edge> edgequeue; // edges als priority queue
-
 	//private ArrayList<PriorityQueue<Edge>> array;
-
-	/*
-	private class AdjacencyList {
-
-		private ArrayList<HashSet<Integer>> n = new ArrayList<HashSet<Integer>>(); // besser wäre al mit priorityqueues mit edges
-
-		public AdjacencyList() {
-			for(Edge e : edges) {
-				n.add(e.node1, e.node2);
-				n.add(e.node2, e.node1);
-			}
-		}
-	}
-	*/
 
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
