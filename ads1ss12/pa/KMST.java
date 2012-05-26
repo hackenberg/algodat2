@@ -18,9 +18,9 @@ public class KMST extends AbstractKMST {
 
 	private HashSet<Integer> nodes;
 	private ArrayList<PriorityQueue<Integer>> al; // Adjazenzliste
-	private PriorityQueue<Edge> edgequeue; // edges als priority queue
+	//private PriorityQueue<Edge> edgequeue; // edges als priority queue
 
-	private ArrayList<PriorityQueue<Edge>> array;
+	//private ArrayList<PriorityQueue<Edge>> array;
 
 	/*
 	private class AdjacencyList {
@@ -72,6 +72,7 @@ public class KMST extends AbstractKMST {
 			al.get(e.node2).add(e.node1);
 		}
 
+		/*
 		// priority queue initialisieren
 		edgequeue = new PriorityQueue<Edge>();
 		for(Edge e : edges) {
@@ -83,6 +84,7 @@ public class KMST extends AbstractKMST {
 			array.get(e.node1).add(e);
 			array.get(e.node2).add(e);
 		}
+		*/
 
 		/*
 		this.numNodes = numNodes;
