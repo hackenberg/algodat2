@@ -2,7 +2,7 @@ package ads1ss12.pa;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.PriorityQueue;
 
 /**
@@ -22,7 +22,6 @@ public class KMST extends AbstractKMST {
 	private HashSet<Edge> mst;
 	private HashSet<Integer> mstNodes;
 	private int localLowerBound;
-
 
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
@@ -60,6 +59,11 @@ public class KMST extends AbstractKMST {
 			al.get(e.node2).add(e.node1);
 		}
 
+		//
+		mst = new HashSet<Edge>();
+		mstNodes = new HashSet<Integer>();
+
+
 		// dieser Konstruktor dient nur der ersten initialisierung
 		localLowerBound = 0;
 
@@ -71,6 +75,54 @@ public class KMST extends AbstractKMST {
 		this.mstNodes = mstNodes;
 		this.edges = remainingEdges;
 		this.localLowerBound = localLowerBound;
+
+		// beenden, falls k Knoten verbunden
+		if(mst.size() >= k) {
+			this.setSolution(localLowerBound, mst);
+			return;
+		}
+
+		// abbrechen falls Lösung nicht mehr optimal
+		else if(localLowerBound > this.getSolution().getUpperBound()) {
+			return;
+		}
+
+		// kleinste, mit der Lösungsmenge verbundene, Kante suchen
+		Edge minEdge = null;
+		int minWeight = Integer.MAX_VALUE;
+		for(Edge e : remainingEdges) {
+			if(e.weight < minWeight && (mstNodes.contains(e.node1) ^ mstNodes.contains(e.node2))) {
+				minEdge = e;
+				minWeight = e.weight;
+			}
+		}
+
+		// minEdge wird auf jeden Fall entfernt
+		HashSet<Edge> newRemainingEdges = new HashSet<Edge>(remainingEdges);
+		newRemainingEdges.remove(minEdge);
+
+		// mit minEdge fortfahren
+		HashSet<Edge> newMst = new HashSet<Edge>(mst);
+		HashSet<Integer> newMstNodes = new HashSet<Integer>(mstNodes);
+
+		newMst.add(minEdge);
+		newMstNodes.add(minEdge.node1);
+		newMstNodes.add(minEdge.node2);
+		int newLocalLowerBound = localLowerBound + minWeight;
+
+
+		KMST newKMST = new KMST(newMst, newMstNodes, newRemainingEdges, newLocalLowerBound);
+		Thread thread1 = new Thread(newKMST, "k-mst Thread");
+		thread1.start();
+
+		// ohne minEdge fortfahren
+		newMst = new HashSet<Edge>(mst);
+		newMstNodes = new HashSet<Integer>(mstNodes);
+		newLocalLowerBound = localLowerBound;
+
+		newKMST = new KMST(newMst, newMstNodes, newRemainingEdges, newLocalLowerBound);
+		Thread thread2 = new Thread(newKMST, "k-mst Thread");
+		thread2.start();
 	}
 
 	/**
@@ -86,28 +138,26 @@ public class KMST extends AbstractKMST {
 	public void run() {
 
 		int startNode = 0;
+		mstNodes.add(startNode);
 
+		KMST newKMST = new KMST(mst, mstNodes, edges, localLowerBound);
+		Thread thread = new Thread(newKMST, "k-mst Thread");
+		thread.start();
+		return;
+
+		/*
 		// navigiere mit Depth-First-Search zu jedem Knoten
 		for(Integer n : depthFirstSearch1(startNode)) {
 			prim(n);
 		}
+		*/
 	}
 
 	/**
 	 * Implementierung des Algorithmus von Prim zur Findung eines kMST.
 	 * Dieser Algorithmus enthält bereits BnB spezifische Modifizierungen.
 	 */
-	public void prim(int node) {
-
-		HashSet<Edge> mst = new HashSet<Edge>(); 		// Lösungsmenge
-		HashSet<Integer> mstNodes = new HashSet<Integer>();	// In der Lösungsmenge enthaltenen Knoten
-		int localLowerBound = 0; 				// lokale untere Schranke
-		mstNodes.add(node);
-
-		prim(mst, mstNodes, edges, localLowerBound);
-		return;
-	}
-
+	/*
 	public void prim(HashSet<Edge> mst, HashSet<Integer> mstNodes, HashSet<Edge> remainingEdges, int localLowerBound) {
 
 		// beenden, falls k Knoten verbunden
@@ -153,6 +203,7 @@ public class KMST extends AbstractKMST {
 
 		prim(newMst, newMstNodes, newRemainingEdges, localLowerBound);
 	}
+	*/
 
 
 	public ArrayList<Integer> depthFirstSearch1(int node) {
