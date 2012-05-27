@@ -19,6 +19,11 @@ public class KMST extends AbstractKMST {
 	private HashSet<Integer> nodes;
 	private ArrayList<PriorityQueue<Integer>> al; // Adjazenzliste
 
+	private HashSet<Edge> mst;
+	private HashSet<Integer> mstNodes;
+	private int localLowerBound;
+
+
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
 	 * Initialisierung Ihrer Datenstrukturen.
@@ -55,7 +60,17 @@ public class KMST extends AbstractKMST {
 			al.get(e.node2).add(e.node1);
 		}
 
+		// dieser Konstruktor dient nur der ersten initialisierung
+		localLowerBound = 0;
+
 		this.setSolution(Integer.MAX_VALUE, edges);
+	}
+
+	public KMST(HashSet<Edge> mst, HashSet<Integer> mstNodes, HashSet<Edge> remainingEdges, int localLowerBound) {
+		this.mst = mst;
+		this.mstNodes = mstNodes;
+		this.edges = remainingEdges;
+		this.localLowerBound = localLowerBound;
 	}
 
 	/**
