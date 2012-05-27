@@ -18,8 +18,6 @@ public class KMST extends AbstractKMST {
 
 	private HashSet<Integer> nodes;
 	private ArrayList<PriorityQueue<Integer>> al; // Adjazenzliste
-	//private PriorityQueue<Edge> edgequeue; // edges als priority queue
-	//private ArrayList<PriorityQueue<Edge>> array;
 
 	/**
 	 * Der Konstruktor. Hier ist die richtige Stelle für die
@@ -56,32 +54,6 @@ public class KMST extends AbstractKMST {
 			al.get(e.node1).add(e.node2);
 			al.get(e.node2).add(e.node1);
 		}
-
-		/*
-		// priority queue initialisieren
-		edgequeue = new PriorityQueue<Edge>();
-		for(Edge e : edges) {
-			edgequeue.add(e);
-		}
-
-		array = new ArrayList<PriorityQueue<Edge>>();
-		for(Edge e : edges) {
-			array.get(e.node1).add(e);
-			array.get(e.node2).add(e);
-		}
-		*/
-
-		/*
-		this.numNodes = numNodes;
-		this.numEdges = numEdges;
-		this.edges = edges;
-		this.k = k;
-
-		for(Edge e : edges) {
-			this.nodes.add(e.node1);
-			this.nodes.add(e.node2);
-		}
-		*/
 
 		this.setSolution(Integer.MAX_VALUE, edges);
 	}
