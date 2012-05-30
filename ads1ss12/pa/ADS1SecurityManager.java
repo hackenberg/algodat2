@@ -6,11 +6,11 @@ import java.security.Permission;
 
 
 /**
- * SecurityManager für das ADS2 Framework.
+ * SecurityManager f&uuml;r das ADS2 Framework.
  * 
  * <p>
- * <b>WICHTIG:</b> Nehmen Sie keine Änderungen in dieser Klasse vor. Bei
- * der Abgabe werden diese Änderungen verworfen und es könnte dadurch
+ * <b>WICHTIG:</b> Nehmen Sie keine &Auml;nderungen in dieser Klasse vor. Bei
+ * der Abgabe werden diese &Auml;nderungen verworfen und es k&ouml;nnte dadurch
  * passieren, dass Ihr Programm somit nicht mehr korrekt funktioniert.
  * </p>
  */

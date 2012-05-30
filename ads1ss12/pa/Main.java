@@ -11,13 +11,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Diese Klasse enthält nur die {@link #main main()}-Methode zum Starten
+ * Diese Klasse enth&auml;lt nur die {@link #main main()}-Methode zum Starten
  * des Programms, sowie {@link #printDebug(String)} und
  * {@link #printDebug(Object)} zum Ausgeben von Debug Meldungen.
  * 
  * <p>
- * <b>WICHTIG:</b> Nehmen Sie keine Änderungen in dieser Klasse vor. Bei
- * der Abgabe werden diese Änderungen verworfen und es könnte dadurch
+ * <b>WICHTIG:</b> Nehmen Sie keine &Auml;nderungen in dieser Klasse vor. Bei
+ * der Abgabe werden diese &Auml;nderungen verworfen und es k&ouml;nnte dadurch
  * passieren, dass Ihr Programm somit nicht mehr korrekt funktioniert.
  * </p>
  */
@@ -38,10 +38,10 @@ public class Main {
 	 */
 	private static boolean dontStop = false;
 
-	/** Test flag für Laufzeit Ausgabe */
+	/** Test flag f&uuml;r Laufzeit Ausgabe */
 	private static boolean test = false;
 
-	/** Debug flag für zusätzliche Debug Ausgaben */
+	/** Debug flag f&uuml;r zus&auml;tzliche Debug Ausgaben */
 	private static boolean debug = false;
 
 	/** Die Anzahl der Knoten */
@@ -53,17 +53,17 @@ public class Main {
 	/** Der Wert k */
 	private static Integer k;
 
-	/** Der Schwellwert für die gelbe Schranke */
+	/** Der Schwellwert f&uuml;r die gelbe Schranke */
 	private static Integer threshold;
 
 	/**
-	 * Liest die Daten einer Testinstanz ein und übergibt sie an die
+	 * Liest die Daten einer Testinstanz ein und &uuml;bergibt sie an die
 	 * entsprechenden Methoden der k-MST Implementierung.
 	 * 
 	 * <p>
 	 * Wenn auf der Kommandozeile die Option <code>-d</code> angegeben wird,
-	 * werden sämtliche Strings, die an {@link Main#printDebug(String)}
-	 * übergeben werden, ausgegeben.
+	 * werden s&auml;mtliche Strings, die an {@link Main#printDebug(String)}
+	 * &uuml;bergeben werden, ausgegeben.
 	 * </p>
 	 * 
 	 * <p>
@@ -71,14 +71,14 @@ public class Main {
 	 * </code>, <code>-t</code>, oder <code>-s</code> beginnt, wird als der Pfad
 	 * zur Datei interpretiert, aus der die Testinstanz auszulesen ist. Alle
 	 * nachfolgenden Parameter werden ignoriert. Wird kein Dateiname angegeben,
-	 * wird die Testinstanz über {@link System#in} eingelesen.
+	 * wird die Testinstanz &uuml;ber {@link System#in} eingelesen.
 	 * </p>
 	 * 
 	 * @param args
-	 *            Die von der Kommandozeile übergebenen Argumente. Die
-	 *            Option <code>-d</code> aktiviert debug-Ausgaben über
+	 *            Die von der Kommandozeile &uuml;bergebenen Argumente. Die
+	 *            Option <code>-d</code> aktiviert debug-Ausgaben &uuml;ber
 	 *            {@link #printDebug(String)}, <code>-t</code> gibt
-	 *            zusätzlich Dateiname und Laufzeit aus und <code>-s</code>
+	 *            zus&auml;tzlich Dateiname und Laufzeit aus und <code>-s</code>
 	 *            verhindert, dass Ihr Algorithmus nach 30 Sekunden beendet
 	 *            wird. Der erste andere String wird als Dateiname
 	 *            interpretiert.
@@ -112,7 +112,7 @@ public class Main {
 	}
 
 	/**
-	 * Liest einen Testfall vom übergebenen {@link Scanner} ein.
+	 * Liest einen Testfall vom &uuml;bergebenen {@link Scanner} ein.
 	 * 
 	 * @param is
 	 *            Der {@link Scanner}
@@ -132,7 +132,7 @@ public class Main {
 
 		threshold = Integer.valueOf(is.nextLine());
 
-		Set<Edge> e = new HashSet<Edge>((int)(numEdges/0.75));
+		Set<Edge> e = new HashSet<Edge>((int) (numEdges / 0.75));
 
 		for (int edge_counter = 0; (is.hasNext()); edge_counter++) {
 
@@ -177,7 +177,7 @@ public class Main {
 
 	/**
 	 * Startet Ihre k-MST Implementierung mit einen Testfall und
-	 * überprüft danach Ihre Lösung.
+	 * &uuml;berpr&uuml;ft danach Ihre L&ouml;sung.
 	 * 
 	 * @param edges
 	 *            Kantenmege des Graphen
@@ -268,11 +268,11 @@ public class Main {
 	}
 
 	/**
-	 * Diese Methode überprüft ob eine Lösung einen gültigen Baum mit exakt
+	 * Diese Methode &uuml;berpr&uuml;ft ob eine L&ouml;sung einen g&uuml;ltigen Baum mit exakt
 	 * k Knoten darstellt.
 	 * 
 	 * @param solution
-	 *            Die Lösung die überprüft werden soll
+	 *            Die L&ouml;sung die &uuml;berpr&uuml;ft werden soll
 	 * @param k
 	 *            Anzahl der erforderlichen Knoten.
 	 */
@@ -286,23 +286,21 @@ public class Main {
 			nodes.add(e.node1);
 			nodes.add(e.node2);
 			Set<Integer> s = null;
-			if (e.node1 < e.node2) {
-				if (adjlist.containsKey(e.node1)) {
-					s = adjlist.get(e.node1);
-				} else {
-					s = new HashSet<Integer>();
-					adjlist.put(e.node1, s);
-				}
-				s.add(e.node2);
+			if (adjlist.containsKey(e.node1)) {
+				s = adjlist.get(e.node1);
 			} else {
-				if (adjlist.containsKey(e.node2)) {
-					s = adjlist.get(e.node2);
-				} else {
-					s = new HashSet<Integer>();
-					adjlist.put(e.node2, s);
-				}
-				s.add(e.node1);
+				s = new HashSet<Integer>();
+				adjlist.put(e.node1, s);
 			}
+			s.add(e.node2);
+			s = null;
+			if (adjlist.containsKey(e.node2)) {
+				s = adjlist.get(e.node2);
+			} else {
+				s = new HashSet<Integer>();
+				adjlist.put(e.node2, s);
+			}
+			s.add(e.node1);
 		}
 
 		// check overall node count
@@ -311,13 +309,20 @@ public class Main {
 		}
 		// check reachable nodes
 		nodes = new HashSet<Integer>();
+		Map<Integer, Integer> predecessor = new HashMap<Integer, Integer>();
+
 		// we stored only edges (n1,n2) in the adjlist if n1<n2
 		// so if we start at the minimal element we should reach all nodes
-		collectNodes(Collections.min(adjlist.keySet()), adjlist, nodes);
+		int start = Collections.min(adjlist.keySet());
+		nodes.add(start);
+		collectNodes(start, adjlist, nodes, predecessor);
+		if (nodes.size() != k) {
+			bailOut("Der k-MST ist nicht zusammenhaengend!");
+		}
 	}
 
 	/**
-	 * Diese Methode durchwandert den Baum, überprüft Kreisfreiheit und sammelt
+	 * Diese Methode durchwandert den Baum, &uuml;berpr&uuml;ft Kreisfreiheit und sammelt
 	 * alle Knoten.
 	 * 
 	 * @param key
@@ -326,25 +331,33 @@ public class Main {
 	 *            Die Adjazenzliste des Baums
 	 * @param nodes
 	 *            Die gesammelten Knoten.
+	 * @param predecessor
+	 *            Liste der Vorg&auml;nger
 	 */
 	private static void collectNodes(int key,
-			Map<Integer, Set<Integer>> adjlist, Set<Integer> nodes) {
-		nodes.add(key);
+			Map<Integer, Set<Integer>> adjlist, Set<Integer> nodes,
+			Map<Integer, Integer> predecessor) {
 
 		if (adjlist.containsKey(key)) {
 			for (Integer c : adjlist.get(key)) {
 				if (nodes.contains(c)) {
+					if (c.equals(predecessor.get(key))) {
+						// this is ok and that key must exists
+						continue;
+					}
 					// loop check
 					bailOut("Loesung ist nicht kreisfrei!");
 				}
-				collectNodes(c, adjlist, nodes);
+				nodes.add(c);
+				predecessor.put(c, key);
+				collectNodes(c, adjlist, nodes, predecessor);
 			}
 		}
 
 	}
 
 	/**
-	 * Öffnet die Eingabedatei und gibt einen {@link Scanner} zur&uuml;ck,
+	 * &Ouml;ffnet die Eingabedatei und gibt einen {@link Scanner} zur&uuml;ck,
 	 * der von ihr liest. Falls kein Dateiname angegeben wurde, wird von
 	 * {@link System#in} gelesen.
 	 * 
@@ -366,7 +379,7 @@ public class Main {
 
 	/**
 	 * Interpretiert die Parameter, die dem Programm &uuml;bergeben wurden und
-	 * gibt einen {@link Scanner} zurück, der von der Testinstanz liest.
+	 * gibt einen {@link Scanner} zur&uuml;ck, der von der Testinstanz liest.
 	 * 
 	 * @param args
 	 *            Die Eingabeparameter

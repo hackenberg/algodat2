@@ -4,10 +4,10 @@ package ads1ss12.pa;
  * Eine Kante des Eingabe-Graphen.
  * 
  * <p>
- * Auf die Knoten der Kante sowie deren Gewicht kann einfach über die
- * öffentlichen Variablen {@link #node1}, {@link #node2} und
- * {@link #weight} zugegriffen werden. Allerdings können diese Werte nicht
- * verändert werden.
+ * Auf die Knoten der Kante sowie deren Gewicht kann einfach &uuml;ber die
+ * &ouml;ffentlichen Variablen {@link #node1}, {@link #node2} und
+ * {@link #weight} zugegriffen werden. Allerdings k&ouml;nnen diese Werte nicht
+ * ver&auml;ndert werden.
  * </p>
  * 
  * <p>
@@ -89,14 +89,14 @@ public class Edge implements Comparable<Edge> {
 	 * 
 	 * <p>
 	 * Es wird nur ein sehr einfacher Hashwert berechnet, der aber trotzdem nur
-	 * für gleiche Knoten, das selbe Ergebnis liefern sollte.
+	 * f&uuml;r gleiche Knoten, das selbe Ergebnis liefern sollte.
 	 * </p>
 	 * 
 	 * <p>
 	 * Der Aufwand der Hashwertberechnung ist in <i>O(1)</i>.
 	 * </p>
 	 * 
-	 * @return Ein Hashwert für dieses Kanten-Objekt.
+	 * @return Ein Hashwert f&uuml;r dieses Kanten-Objekt.
 	 */
 	@Override
 	public int hashCode() {
@@ -106,7 +106,7 @@ public class Edge implements Comparable<Edge> {
 	}
 
 	/**
-	 * Liefert eine String-Repräsentation dieser Kante.
+	 * Liefert eine String-Repr&auml;sentation dieser Kante.
 	 * 
 	 * Der Aufwand dieser Operation ist in <i>O(1)</i>.
 	 * 
