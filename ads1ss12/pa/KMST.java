@@ -47,11 +47,14 @@ public class KMST extends AbstractKMST {
 		this.setSolution(Integer.MAX_VALUE, edges);
 	}
 
-	public KMST(HashSet<Edge> mst, HashSet<Integer> mstNodes, HashSet<Edge> remainingEdges, int localLowerBound) {
+	public KMST(HashSet<Edge> mst, HashSet<Integer> mstNodes, HashSet<Edge> remainingEdges, int localLowerBound, BnBSolution sol, int k) {
 		this.mst = mst;
 		this.mstNodes = mstNodes;
 		this.edges = remainingEdges;
 		this.localLowerBound = localLowerBound;
+		this.k = k;
+
+		this.setSolution(sol.getUpperBound(), mst);
 	}
 
 
@@ -75,6 +78,7 @@ public class KMST extends AbstractKMST {
 		// beenden, falls k Knoten verbunden
 		if(mst.size() >= k) {
 			this.setSolution(localLowerBound, mst);
+			System.out.println(mst.size());
 			return;
 		}
 
@@ -108,8 +112,9 @@ public class KMST extends AbstractKMST {
 		int newLocalLowerBound = localLowerBound + minWeight;
 
 
-		KMST newKMST = new KMST(newMst, newMstNodes, remainingEdges, newLocalLowerBound);
-		new Thread(newKMST, "k-mst Thread").start();
+		KMST newKMST = new KMST(newMst, newMstNodes, remainingEdges, newLocalLowerBound, this.getSolution(), k);
+		//new Thread(newKMST, "k-mst Thread").start();
+		newKMST.run();
 
 
 
@@ -117,8 +122,9 @@ public class KMST extends AbstractKMST {
 		newMst = new HashSet<Edge>(mst);
 		newMstNodes = new HashSet<Integer>(mstNodes);
 
-		newKMST = new KMST(newMst, newMstNodes, remainingEdges, localLowerBound);
-		new Thread(newKMST, "k-mst Thread").start();
+		newKMST = new KMST(newMst, newMstNodes, remainingEdges, localLowerBound, this.getSolution(), k);
+		//new Thread(newKMST, "k-mst Thread").start();
+		newKMST.run();
 	}
 
 } // class KMST
